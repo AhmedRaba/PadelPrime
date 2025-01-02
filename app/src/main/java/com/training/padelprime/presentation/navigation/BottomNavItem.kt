@@ -8,9 +8,9 @@ sealed class BottomNavItem(
     val label: String,
     @DrawableRes val icon: Int
 ){
-    object CommunityScreen:BottomNavItem("community_screen","Community", R.drawable.ic_community)
-    object ActivitiesScreen:BottomNavItem("activities_screen","Activities",R.drawable.ic_activities)
-    object AddScreen:BottomNavItem("add_screen","",R.drawable.ic_add)
-    object ManagementScreen:BottomNavItem("management_screen","Management",R.drawable.ic_management)
-    object ProfileScreen:BottomNavItem("profile_screen","Profile",R.drawable.ic_profile)
+    object CommunityScreen:BottomNavItem(Screen.CommunityScreen.route,"Community", R.drawable.ic_community)
+    object ActivitiesScreen:BottomNavItem(Screen.ActivitiesScreen.route,"Activities",R.drawable.ic_activities)
+    object AddScreen:BottomNavItem(Screen.AddScreen.route,"",R.drawable.ic_add)
+    object ManagementScreen:BottomNavItem(Screen.ManagementScreen.route,"Management",R.drawable.ic_management)
+    object ProfileScreen:BottomNavItem(Screen.ProfileScreen.route,"Profile",R.drawable.ic_profile)
 }
