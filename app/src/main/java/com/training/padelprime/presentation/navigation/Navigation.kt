@@ -1,14 +1,13 @@
 package com.training.padelprime.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.training.padelprime.presentation.screen.ActivitiesScreen
 import com.training.padelprime.presentation.screen.AddScreen
 import com.training.padelprime.presentation.screen.CommunityScreen
-import com.training.padelprime.presentation.screen.ManagementScreen
+import com.training.padelprime.presentation.screen.management.ManagementScreen
 import com.training.padelprime.presentation.screen.ProfileScreen
 
 

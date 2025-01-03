@@ -66,8 +66,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
+    //Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //Calendar
+    implementation(libs.view)
+    implementation(libs.compose)
+
+
 
 
 }
