@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.training.padelprime.R
+import com.training.padelprime.presentation.screen.management.components.Calendar
 import com.training.padelprime.ui.theme.PadelPrimeTheme
 
 @Composable
@@ -74,6 +74,7 @@ fun BookingsSection() {
             Text(
                 text = "13 Aug 2024",
                 fontWeight = FontWeight.Thin,
+                color = Color.Gray,
                 fontSize = 12.sp
             )
 
@@ -120,7 +121,7 @@ fun BookingsItem() {
                     .weight(1f)
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy((-8).dp),
+                horizontalArrangement = Arrangement.spacedBy((-10).dp),
             ) {
 
                 Image(
@@ -139,14 +140,12 @@ fun BookingsItem() {
                     painter = painterResource(id = R.drawable.iv_person3),
                     contentDescription = null,
                     modifier = Modifier
-                        .offset(x = (-10).dp)
                         .size(38.dp)
                 )
                 Image(
                     painter = painterResource(id = R.drawable.iv_person4),
                     contentDescription = null,
                     modifier = Modifier
-                        .offset(x = (-10).dp)
                         .size(38.dp)
                 )
 
@@ -161,11 +160,13 @@ fun BookingsItem() {
                 Text(
                     text = "05:00 AM",
                     fontWeight = FontWeight.Thin,
+                    color = Color.Gray,
                     fontSize = 12.sp
                 )
                 Text(
                     text = "05:00 AM",
                     fontWeight = FontWeight.Thin,
+                    color = Color.Gray,
                     fontSize = 12.sp
                 )
             }
