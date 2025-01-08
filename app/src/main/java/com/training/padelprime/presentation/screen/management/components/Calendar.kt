@@ -15,9 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.training.padelprime.R
+import com.training.padelprime.ui.theme.darkGray
+import com.training.padelprime.ui.theme.white
 import java.time.LocalDate
 
 
@@ -59,21 +59,21 @@ fun Calendar() {
                     text = "AUG 2024",
                     color = Color.White,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.SemiBold,
                 )
 
                 Icon(
-                    imageVector = Icons.Default.KeyboardArrowUp,
+                    painter = painterResource(id = R.drawable.ic_arrow_up),
                     contentDescription = "Previous month",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
+                    tint = white,
+                    modifier = Modifier.size(26.dp)
                 )
 
                 Icon(
-                    imageVector = Icons.Default.KeyboardArrowDown,
+                    painter = painterResource(id = R.drawable.ic_arrow_down),
                     contentDescription = "Next month",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
+                    tint = white,
+                    modifier = Modifier.size(26.dp)
                 )
 
             }
@@ -81,9 +81,9 @@ fun Calendar() {
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(Color(0xFF303234).copy(alpha = 0.70f))
+                    .background(Color.White.copy(alpha = 0.20f))
                     .clickable(onClick = {})
-                    .size(40.dp),
+                    .size(44.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -91,7 +91,7 @@ fun Calendar() {
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(24.dp)
                         .padding()
                 )
             }
@@ -104,8 +104,9 @@ fun Calendar() {
         Column(
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(8.dp))
-                .background(Color(0xFF303234).copy(alpha = 0.70f))
+                .background(white.copy(alpha = 0.10f))
                 .padding(16.dp)
+
         ) {
 
             Row(
@@ -115,7 +116,8 @@ fun Calendar() {
                 listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat").forEach { day ->
                     Text(
                         text = day,
-                        color = Color.Gray,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
                     )
                 }
@@ -132,10 +134,11 @@ fun Calendar() {
             GridCalendarDays(days = days)
 
         }
-        // Weekday eaders
 
     }
-}@RequiresApi(Build.VERSION_CODES.O)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun GridCalendarDays(days: List<CalendarDay>) {
     val today = LocalDate.now()
@@ -143,7 +146,7 @@ private fun GridCalendarDays(days: List<CalendarDay>) {
 
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         days.chunked(7).forEach { weekDays ->
             Row(
@@ -166,26 +169,40 @@ private fun GridCalendarDays(days: List<CalendarDay>) {
 private fun DayCell(
     day: CalendarDay,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
-            .size(32.dp)
+            .size(36.dp)
             .clip(RoundedCornerShape(4.dp))
             .background(
-                if (isSelected) Color(0xFFFACC15) else Color.Transparent // Orange for selected, transparent otherwise
+                if (isSelected) {
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFFCF8F11),
+                            Color(0xFFFDD42E)
+                        )
+                    )
+                } else {
+                    Brush.linearGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Transparent
+                        )
+                    )
+                }
             )
-            .clickable { onClick() }, // Update the selected day on click
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = day.date.toString(),
-            color = if (isSelected) Color.Black else if (day.isCurrentMonth) Color.White else Color.Gray, // Adjust colors
-            fontSize = 14.sp
+            color = if (isSelected) darkGray else if (day.isCurrentMonth) Color.White else Color.Gray,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal
         )
     }
 }
-
 
 
 data class CalendarDay(

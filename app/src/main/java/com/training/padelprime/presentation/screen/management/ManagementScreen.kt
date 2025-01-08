@@ -1,5 +1,7 @@
 package com.training.padelprime.presentation.screen.management
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +36,7 @@ import com.training.padelprime.R
 import com.training.padelprime.presentation.screen.management.components.Calendar
 import com.training.padelprime.ui.theme.PadelPrimeTheme
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ManagementScreen(
     modifier: Modifier = Modifier,
@@ -63,17 +67,20 @@ fun BookingsSection() {
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             Text(
                 text = "Bookings",
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                fontSize = 18.sp
             )
 
             Text(
                 text = "13 Aug 2024",
-                fontWeight = FontWeight.Thin,
+                fontWeight = FontWeight.Light,
                 color = Color.Gray,
                 fontSize = 12.sp
             )
@@ -83,7 +90,8 @@ fun BookingsSection() {
         Spacer(modifier = Modifier.height(14.dp))
 
         LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(bottom = 44.dp),
             verticalArrangement = Arrangement.spacedBy(11.dp)
         ) {
             items(7) {
@@ -99,14 +107,15 @@ fun BookingsItem() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFF303234).copy(alpha = 0.70f))
+            .clip(RoundedCornerShape(5.dp))
+            .background(Color.White.copy(alpha = 0.10f))
             .height(64.dp),
 
         ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             VerticalDivider(
@@ -119,7 +128,9 @@ fun BookingsItem() {
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(10.dp),
+                    .padding(10.dp)
+                    .height(36.dp)
+                ,
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy((-10).dp),
             ) {
@@ -128,25 +139,25 @@ fun BookingsItem() {
                     painter = painterResource(id = R.drawable.iv_person),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(38.dp)
+                        .fillMaxHeight()
                 )
                 Image(
                     painter = painterResource(id = R.drawable.iv_person2),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(38.dp)
+                        .fillMaxHeight()
                 )
                 Image(
                     painter = painterResource(id = R.drawable.iv_person3),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(38.dp)
+                        .fillMaxHeight()
                 )
                 Image(
                     painter = painterResource(id = R.drawable.iv_person4),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(38.dp)
+                        .fillMaxHeight()
                 )
 
 
@@ -155,28 +166,35 @@ fun BookingsItem() {
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(horizontal = 10.dp)
+                    .padding(bottom = 10.dp, end = 10.dp, top = 6.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
+                    modifier = Modifier.weight(1f),
                     text = "05:00 AM",
-                    fontWeight = FontWeight.Thin,
+                    fontWeight = FontWeight.Normal,
                     color = Color.Gray,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Center
                 )
+
                 Text(
+                    modifier = Modifier.weight(1f),
                     text = "05:00 AM",
-                    fontWeight = FontWeight.Thin,
+                    fontWeight = FontWeight.Normal,
                     color = Color.Gray,
-                    fontSize = 12.sp
-                )
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Center
+                    )
             }
 
 
         }
     }
-    Spacer(modifier = Modifier.height(11.dp))
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @PreviewLightDark
 @Composable
 private fun ManagementScreenPreview() {

@@ -1,6 +1,8 @@
 package com.training.padelprime.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,9 +14,16 @@ import com.training.padelprime.presentation.screen.ProfileScreen
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
 
-    NavHost(navController = navController, startDestination = Screen.ManagementScreen.route) {
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = Screen.ManagementScreen.route
+    ) {
 
         composable(route = Screen.CommunityScreen.route) {
             CommunityScreen(navController = navController)

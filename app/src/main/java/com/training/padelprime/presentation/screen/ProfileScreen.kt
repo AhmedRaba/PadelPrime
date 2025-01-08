@@ -1,5 +1,6 @@
 package com.training.padelprime.presentation.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,11 +24,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -36,12 +38,12 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,8 +56,10 @@ import com.training.padelprime.R
 import com.training.padelprime.presentation.screen.profile.components.MembershipCard
 import com.training.padelprime.ui.theme.PadelPrimeTheme
 import com.training.padelprime.ui.theme.darkGray
+import com.training.padelprime.ui.theme.darkOrange
 import com.training.padelprime.ui.theme.gray
-import com.training.padelprime.ui.theme.orange
+import com.training.padelprime.ui.theme.white
+import com.training.padelprime.ui.theme.yellow
 
 @Composable
 fun ProfileScreen(
@@ -67,7 +71,8 @@ fun ProfileScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+        ,
 
         ) {
 
@@ -79,7 +84,7 @@ fun ProfileScreen(
         ) {
 
             Text(
-                text = "Padel X Profile", fontWeight = FontWeight.Light
+                text = "Padel X Profile", fontWeight = FontWeight.Normal
             )
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
@@ -110,6 +115,7 @@ fun ProfileScreen(
         MembershipSection()
 
 
+
     }
 
 
@@ -118,23 +124,28 @@ fun ProfileScreen(
 @Composable
 fun MembershipSection() {
     Column(
-        modifier = Modifier
-            .padding(10.dp)
+        modifier = Modifier.padding(bottom = 80.dp)
     ) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-            Text(text = "Membership", fontWeight = FontWeight.Thin, fontSize = 18.sp)
+            Text(
+                text = "Membership",
+                fontWeight = FontWeight.Light,
+                fontSize = 18.sp,
+                color = white
+            )
 
             Text(
                 text = "Add Package",
-                fontWeight = FontWeight.Thin,
-                fontSize = 14.sp,
-                color = orange
+                fontWeight = FontWeight.Light,
+                fontSize = 12.sp,
+                color = darkOrange
             )
         }
 
@@ -143,7 +154,6 @@ fun MembershipSection() {
         Row(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             repeat(3) { index ->
                 MembershipCard()
@@ -158,59 +168,53 @@ fun CourtDetailsAndPostsSection() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
-            .clip(RoundedCornerShape(4.dp)),
-        colors = CardDefaults.cardColors(
-            containerColor = gray.copy(alpha = 0.10f)
+            .padding(start = 24.dp, end = 10.dp)
+            .clip(RoundedCornerShape(8.dp)), colors = CardDefaults.cardColors(
+            containerColor = Color.White.copy(alpha = 0.04f)
         )
     ) {
 
         var selectedBox by remember { mutableIntStateOf(1) }
 
+        val textBackgroundColorBox1 = if (selectedBox == 1) Color.White.copy(alpha = 0.10f) else Color.Transparent
+        val textColorBox1 = if (selectedBox == 1) white else Color(0xFF7A7A7A)
+
+        val textBackgroundColorBox2 = if (selectedBox == 2) Color.White.copy(alpha = 0.10f) else Color.Transparent
+        val textColorBox2 = if (selectedBox == 2) white else Color(0xFF7A7A7A)
+
         Row(
-            modifier = Modifier
-                .padding(10.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(4.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { selectedBox = 1 }
-                    .background(if (selectedBox == 1) gray.copy(alpha = 0.30f) else Color.Transparent),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = Modifier
+                .weight(1f)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .clickable { selectedBox = 1 }
+                .background(textBackgroundColorBox1),
+                contentAlignment = Alignment.Center) {
                 Text(
                     text = "Court Details",
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    color = textColorBox1,
                     fontSize = 14.sp
                 )
             }
 
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(4.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable { selectedBox = 2 }
-                    .background(if (selectedBox == 2) gray.copy(alpha = 0.30f) else Color.Transparent),
+            Box(modifier = Modifier
+                .weight(1f)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .clickable { selectedBox = 2 }
+                .background(textBackgroundColorBox2),
 
-                contentAlignment = Alignment.Center
-            ) {
+                contentAlignment = Alignment.Center) {
                 Text(
-                    text = "Posts",
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.White,
-                    fontSize = 14.sp
+                    text = "Posts", fontWeight = FontWeight.Medium, color = textColorBox2, fontSize = 14.sp
                 )
             }
-
-
         }
-
-
     }
 }
 
@@ -221,41 +225,61 @@ fun ClubCoachSection() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp),
+            .padding(start = 31.dp),
+        verticalArrangement = Arrangement.spacedBy(11.dp)
     ) {
-        Text(text = "Club Coach", fontWeight = FontWeight.Medium, fontSize = 18.sp)
-
-        Spacer(modifier = Modifier.height(11.dp))
+        Text(
+            text = "Club Coach", fontWeight = FontWeight.SemiBold, fontSize = 18.sp, color = white
+        )
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            Image(
-                painter = painterResource(id = R.drawable.iv_add_coach),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(44.dp)
-                    .clip(CircleShape)
-                    .clickable { }
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(painter = painterResource(id = R.drawable.iv_add_coach),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clip(CircleShape)
+                        .clickable { })
+                Text(
+                    text = "New", fontWeight = FontWeight.Normal, fontSize = 12.sp, color = white
+                )
+
+            }
 
             Row(
-                modifier = Modifier
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                repeat(10) { index ->
-                    Image(
-                        painter = painterResource(id = R.drawable.iv_coach),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(44.dp)
-                            .clip(CircleShape)
-                            .clickable { }
-                    )
+                repeat(10) {
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(painter = painterResource(id = R.drawable.iv_coach),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(64.dp)
+                                .clip(CircleShape)
+                                .border(BorderStroke(1.dp, white), CircleShape)
+                                .clickable { }
+                                .padding(4.dp)
+                        )
+
+                        Text(
+                            text = "Wade Warren",
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 10.sp,
+                            color = white
+                        )
+
+
+                    }
+
 
                 }
             }
@@ -267,25 +291,23 @@ fun ClubCoachSection() {
 fun ButtonsSection() {
 
     Column(
-        modifier = Modifier
-            .padding(horizontal = 10.dp),
+        modifier = Modifier.padding(horizontal = 14.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(54.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .border(1.dp, orange, RoundedCornerShape(8.dp))
+                .border(1.dp, darkOrange, RoundedCornerShape(8.dp))
                 .clickable { },
             colors = CardDefaults.cardColors(
-                containerColor = gray.copy(alpha = 0.10f)
+                containerColor = white.copy(alpha = 0.05f)
             )
         ) {
 
             Row(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -305,9 +327,9 @@ fun ButtonsSection() {
                     )
 
                     Icon(
-                        imageVector = Icons.Default.KeyboardArrowRight,
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = white,
                         modifier = Modifier.padding(horizontal = 10.dp)
                     )
                 }
@@ -325,41 +347,34 @@ fun ButtonsSection() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                modifier = Modifier
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Button(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(1f),
-                    colors = ButtonColors(
-                        containerColor = orange,
-                        contentColor = darkGray,
-                        disabledContainerColor = Color.Unspecified,
-                        disabledContentColor = Color.Unspecified
-                    ),
-                    shape = RoundedCornerShape(6.dp),
-                    onClick = { }
-                ) {
+                Button(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(
+                                Color(0xFFF2AD25), Color(0xFFB97C03)
+                            )
+                        ), shape = RoundedCornerShape(6.dp)
+                    ), colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = darkGray,
+                ), shape = RoundedCornerShape(6.dp), onClick = { }) {
                     Text(text = "Edit Profile")
-
                 }
-                Button(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .border(1.dp, orange, RoundedCornerShape(6.dp)),
-                    colors = ButtonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = orange,
-                        disabledContainerColor = Color.Unspecified,
-                        disabledContentColor = Color.Unspecified
-                    ),
-                    shape = RoundedCornerShape(6.dp),
-                    onClick = { }
-                ) {
+                Button(modifier = Modifier
+                    .fillMaxHeight()
+                    .border(1.dp, darkOrange, RoundedCornerShape(6.dp)), colors = ButtonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = darkOrange,
+                    disabledContainerColor = Color.Unspecified,
+                    disabledContentColor = Color.Unspecified
+                ), shape = RoundedCornerShape(6.dp), onClick = { }) {
                     Text(text = "Add Court")
                 }
 
@@ -371,7 +386,7 @@ fun ButtonsSection() {
                     .fillMaxHeight()
                     .clip(shape = RoundedCornerShape(6.dp))
                     .width(48.dp)
-                    .background(darkGray)
+                    .background(white.copy(alpha = 0.10f))
                     .clickable { },
                 contentAlignment = Alignment.Center
             ) {
@@ -399,38 +414,38 @@ fun ProfileDetailsSection() {
     ) {
 
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
 
             Image(
                 painter = painterResource(id = R.drawable.iv_profile_cover),
                 contentDescription = null,
                 modifier = Modifier
+                    .height(175.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .fillMaxWidth()
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .offset(y = 100.dp),
+                    .offset(y = 118.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.iv_profile_avatar),
                     contentDescription = null,
                     modifier = Modifier
+                        .size(110.dp)
                         .padding(horizontal = 10.dp)
-
                 )
 
                 Row(
                     modifier = Modifier
                         .align(Alignment.Bottom)
                         .height(60.dp)
-                        .padding(horizontal = 10.dp)
+                        .padding(horizontal = 15.dp)
                         .offset(y = 10.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
                 ) {
                     FollowersSection()
                 }
@@ -440,16 +455,20 @@ fun ProfileDetailsSection() {
 
         }
 
-        Spacer(modifier = Modifier.height(54.dp))
+        Spacer(modifier = Modifier.height(48.dp))
 
         Column(
             modifier = Modifier.padding(horizontal = 15.dp)
         ) {
-            Text(text = "Padel X", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+            Text(
+                text = "Padel X", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = white
+            )
             Text(
                 text = "i Play Padel 4 years ago, No one cant defeat me... ",
-                fontWeight = FontWeight.Light,
-                fontSize = 12.sp
+                fontWeight = FontWeight.Normal,
+                fontSize = 10.sp,
+                lineHeight = 17.sp,
+                color = white
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -463,7 +482,7 @@ fun ProfileDetailsSection() {
                 Text(
                     text = "Jeddah, Saudi Arabia",
                     fontWeight = FontWeight.Thin,
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                     color = Color.Gray
                 )
             }
@@ -476,37 +495,49 @@ fun ProfileDetailsSection() {
 
 @Composable
 fun FollowersSection() {
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy((-6).dp)
     ) {
-        Text(text = "834", fontWeight = FontWeight.Light, fontSize = 14.sp)
-        Text(text = "Followers", fontWeight = FontWeight.Light, fontSize = 10.sp)
+        Text(text = "834", fontWeight = FontWeight.Medium, fontSize = 12.sp, color = white)
+        Text(
+            text = "Followers", fontWeight = FontWeight.Normal, fontSize = 10.sp, color = white
+        )
     }
 
+
     VerticalDivider(
-        color = gray.copy(alpha = 0.30f),
+        modifier = Modifier.padding(vertical = 10.dp),
+        color = gray.copy(alpha = 0.10f),
         thickness = 2.dp
     )
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy((-6).dp)
     ) {
-        Text(text = "834", fontWeight = FontWeight.Light, fontSize = 14.sp)
-        Text(text = "Followers", fontWeight = FontWeight.Light, fontSize = 10.sp)
+        Text(text = "162", fontWeight = FontWeight.Medium, fontSize = 12.sp, color = white)
+        Text(
+            text = "Following", fontWeight = FontWeight.Normal, fontSize = 10.sp, color = white
+        )
     }
 
+
     VerticalDivider(
-        color = gray.copy(alpha = 0.30f),
+        modifier = Modifier.padding(vertical = 10.dp),
+        color = gray.copy(alpha = 0.10f),
         thickness = 2.dp
     )
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy((-6).dp)
     ) {
-        Text(text = "834", fontWeight = FontWeight.Light, fontSize = 14.sp)
-        Text(text = "Followers", fontWeight = FontWeight.Light, fontSize = 10.sp)
+        Text(
+            text = "15", fontWeight = FontWeight.Medium, fontSize = 12.sp, color = white
+        )
+        Text(text = "Activates", fontWeight = FontWeight.Normal, fontSize = 10.sp, color = yellow)
     }
 
 }

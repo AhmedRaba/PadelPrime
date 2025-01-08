@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.training.padelprime"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -72,6 +72,9 @@ dependencies {
     //Calendar
     implementation(libs.view)
     implementation(libs.compose)
+
+    //System ui controller
+    implementation (libs.google.accompanist.systemuicontroller)
 
 
 
